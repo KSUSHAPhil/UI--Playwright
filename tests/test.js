@@ -1,13 +1,7 @@
 const { chromium } = require('@playwright/test');
 const authorization = require('../user');
 
-test("falseTest", async () => {
-    const browser = await chromium.launch({
-        headless: false,
-        slowMo: 1000,
-        devtools: true,
-    });
-    const page = await browser.newPage();
+test("falseTest", async ({page}) => {
     await page.goto("https://netology.ru/?modal=sign_in");
     await page.waitForNavigation();
 
@@ -28,6 +22,4 @@ test("falseTest", async () => {
 
     await expect(page).toHaveURL('https://netology.ru/profile');
     await expect(page.locator('h2')).toHaveText('Мои курсы и профессии');
-    
-    await browser.close();
 });
